@@ -5,7 +5,7 @@ spring:
   application:
     name: authcore-service
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db-spring-jwt.cv8ieq0oc8g0.us-east-2.rds.amazonaws.com:3306/authcore_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db-spring-jwt.cv8ieq0oc8g0.us-east-2.rds.amazonaws.com:3306/spring_jwt_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
     username: ${SPRING_DATASOURCE_USERNAME:admin}
     password: ${SPRING_DATASOURCE_PASSWORD:bandeanche14}
     driver-class-name: com.mysql.cj.jdbc.Driver
