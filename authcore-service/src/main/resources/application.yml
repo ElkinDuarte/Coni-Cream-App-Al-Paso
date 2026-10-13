@@ -5,9 +5,9 @@ spring:
   application:
     name: authcore-service
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/authcore_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
-    username: ${SPRING_DATASOURCE_USERNAME:root}
-    password: ${SPRING_DATASOURCE_PASSWORD:root}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db-spring-jwt.cv8ieq0oc8g0.us-east-2.rds.amazonaws.com:3306/authcore_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
+    username: ${SPRING_DATASOURCE_USERNAME:admin}
+    password: ${SPRING_DATASOURCE_PASSWORD:bandeanche14}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -19,5 +19,5 @@ spring:
 
 authcore:
   jwt:
-    secret: ${JWT_SECRET:cambia-este-secreto-por-uno-largo-y-aleatorio-de-al-menos-32-bytes}
+    secret: ${JWT_SECRET:lD6FtWWWLBqHzm7osQiel+C6RJqgGeqBzVpQ7bmGoyM=}
     expiration-ms: 3600000

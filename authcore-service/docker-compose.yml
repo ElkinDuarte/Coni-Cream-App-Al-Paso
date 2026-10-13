@@ -4,10 +4,10 @@ services:
   authcore-db:
     image: mysql:8.4
     environment:
-      MYSQL_DATABASE: authcoredb
+      MYSQL_DATABASE: spring_jwt_db
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: authcore
-      MYSQL_PASSWORD: authcore
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: bandeanche14
     ports:
       - "3306:3306"
     volumes:
