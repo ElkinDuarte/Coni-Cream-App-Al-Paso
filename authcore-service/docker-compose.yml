@@ -2,28 +2,33 @@ version: "3.8"
 
 services:
   authcore-db:
-    image: mysql:8.4
+    image: postgres:17-alpine
+    container_name: authcore-db
     environment:
-      MYSQL_DATABASE: spring_jwt_db
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: bandeanche14
+      POSTGRES_DB: auth_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - authcore-db-data:/var/lib/mysql
+      # Solo montamos los scripts SQL en modo lectura (NO hay volumen persistente de datos)
+      - ./init-db:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d auth_db"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
 
   authcore-service:
     build: .
+    container_name: authcore-service
     depends_on:
-      - authcore-db
+      authcore-db:
+        condition: service_healthy # Espera a que PostgreSQL ejecute el seed antes de arrancar Spring Boot
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://authcore-db:3306/authcoredb?useSSL=false&allowPublicKeyRetrieval=true
-      SPRING_DATASOURCE_USERNAME: authcore
-      SPRING_DATASOURCE_PASSWORD: authcore
-      JWT_SECRET: cambia-este-secreto-por-uno-largo-y-aleatorio-de-al-menos-32-bytes-en-produccion
+      SPRING_DATASOURCE_URL: jdbc:postgresql://authcore-db:5432/auth_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      JWT_SECRET: lD6FtWWWLBqHzm7osQiel+C6RJqgGeqBzVpQ7bmGoyM=
     ports:
       - "8081:8081"
-
-volumes:
-  authcore-db-data:

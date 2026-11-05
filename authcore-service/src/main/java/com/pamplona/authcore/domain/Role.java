@@ -1,10 +1,10 @@
 package com.pamplona.authcore.domain;
 
 /**
- * Roles disponibles en el sistema. Para agregar un nuevo rol (ej. SOPORTE),
- * basta con agregar una constante aqui - no requiere cambios en ninguna otra capa.
+ * Roles del sistema Coni-Cream.
+ * Define las capacidades de acceso: Administrador del negocio o Comerciante en ruta.
  */
 public enum Role {
-    ADMIN,
-    USER
+    ADMINISTRADOR,
+    COMERCIANTE
 }

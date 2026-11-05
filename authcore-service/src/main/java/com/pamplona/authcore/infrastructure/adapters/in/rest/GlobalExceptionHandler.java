@@ -3,6 +3,7 @@ package com.pamplona.authcore.infrastructure.adapters.in.rest;
 import com.pamplona.authcore.application.exception.InvalidCredentialsException;
 import com.pamplona.authcore.application.exception.UserAlreadyExistsException;
 import com.pamplona.authcore.application.exception.UserNotFoundException;
+import com.pamplona.authcore.application.exception.UserSuspendedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,6 +25,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", ex.getMessage()));
     }
 
+    // [FEAT-01 y FEAT-02] Respuesta HTTP 403 cuando la cuenta esté inactiva o suspendida
+    @ExceptionHandler(UserSuspendedException.class)
+    public ResponseEntity<Map<String, String>> handleUserSuspended(UserSuspendedException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", ex.getMessage()));
+    }
+
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleUserNotFound(UserNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", ex.getMessage()));
@@ -34,7 +41,7 @@ public class GlobalExceptionHandler {
         String message = ex.getBindingResult().getFieldErrors().stream()
                 .map(e -> e.getField() + ": " + e.getDefaultMessage())
                 .findFirst()
-                .orElse("Datos invalidos");
+                .orElse("Datos inválidos");
         return ResponseEntity.badRequest().body(Map.of("error", message));
     }
 }
