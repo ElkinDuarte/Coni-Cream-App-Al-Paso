@@ -28,7 +28,7 @@ public class JwtTokenProviderAdapter implements TokenProviderPort {
     public JwtTokenProviderAdapter(
             @Value("${authcore.jwt.secret}") String secret,
             @Value("${authcore.jwt.expiration-ms:3600000}") long expirationMs) {
-        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        this.key = Keys.hmacShaKeyFor(io.jsonwebtoken.io.Decoders.BASE64.decode(secret.trim()));
         this.expirationMs = expirationMs;
     }
 
