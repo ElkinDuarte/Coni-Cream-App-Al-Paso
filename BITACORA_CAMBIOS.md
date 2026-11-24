@@ -95,7 +95,7 @@
   - Para permitir el acceso público a las rutas oficiales de la API REST sin ser interceptadas por el firewall de seguridad previo a la autenticación.
 * **Impacto arquitectónico:** Mantiene la seguridad declarativa de Spring Security alineada con el contrato REST de entrada.
 
-### [2026-11-04] - Estandarización de Clave Criptográfica JWT a Base64
+### [2026-11-07] - Estandarización de Clave Criptográfica JWT a Base64
 * **Capa arquitectónica:** Infraestructura Seguridad (`infrastructure/adapters/out/security/` e `infrastructure/config/`).
 * **¿Qué se cambió o agregó?**
   - Se sustituyó el método `.getBytes(StandardCharsets.UTF_8)` por `Decoders.BASE64.decode(secret.trim())` tanto en `JwtTokenProviderAdapter` (emisión) como en `JwtAuthenticationFilter` (validación de endpoints locales).
